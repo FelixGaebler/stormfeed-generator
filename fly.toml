@@ -1,0 +1,32 @@
+app             = "stormfeed-generator"
+primary_region  = "fra"
+
+[build]
+
+[env]
+  FEEDGEN_PORT                          = "3000"
+  FEEDGEN_LISTENHOST                    = "localhost"
+  FEEDGEN_SQLITE_LOCATION               = "/data/feed.db"
+  FEEDGEN_SUBSCRIPTION_ENDPOINT         = "wss://bsky.network"
+  FEEDGEN_HOSTNAME                      = "stormfeed-generator.fly.dev"
+  FEEDGEN_PUBLISHER_DID                 ="did:plc:zigwgvnrkivhf2tqdkv6gcna"
+  FEEDGEN_SUBSCRIPTION_RECONNECT_DELAY  = "3000"
+  BLUESKY_HANDLE                        = "felixge0.bsky.social"
+  STARTER_PACK_URL                      = "https://bsky.app/starter-pack/jpube.bsky.social/3lbwrxm7hq32w"
+  KEYWORDS                              = "aggregation,time series,differences-in-differences,bayesian,casual,inflation"
+
+[mounts]
+  source = "data"
+  destination = "/data"
+
+[http_service]
+  internal_port         = 3000
+  force_https           = true
+  auto_stop_machines    = "off"
+  auto_start_machines   = true
+  min_machines_running  = 1         
+  processes             = ["app"]
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = 256 
